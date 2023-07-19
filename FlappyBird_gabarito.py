@@ -188,7 +188,7 @@ def main():
         # interação com o usuário
         for evento in pygame.event.get():
             if evento.type == pygame.QUIT:
-                rodando = False
+                rodando = False 
                 pygame.quit()
                 quit()
             if evento.type == pygame.KEYDOWN:

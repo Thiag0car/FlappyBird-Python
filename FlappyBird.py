@@ -5,13 +5,13 @@ import random
 TELA_LARGURA = 500
 TELA_ALTURA = 800
 
-IMAGEM_CANO = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs','pipe.png')))
-IMAGEM_CHAO = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs','base.png')))
-IMAGEM_BACKGROUND = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs','bg.png')))
+IMAGEM_CANO = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'pipe.png')))
+IMAGEM_CHAO = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'base.png')))
+IMAGEM_BACKGROUND = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'bg.png')))
 IMAGENS_PASSARO = [
-    pygame.transform.scale2x(pygame.image.load(os.path.join('imgs','bird1.png'))),
-    pygame.transform.scale2x(pygame.image.load(os.path.join('imgs','bird2.png'))),
-    pygame.transform.scale2x(pygame.image.load(os.path.join('imgs','bird3.png')))
+    pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'bird1.png'))),
+    pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'bird2.png'))),
+    pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'bird3.png')))
 ]
 
 pygame.font.init()
@@ -91,7 +91,7 @@ class Passaro:
         return pygame.mask.from_surface(self.imagem)
                               
 class Cano:
-    DISTANCIA = 200
+    DISTANCIA = 220
     VELOCIDADE = 5
     
     def __init__(self, x):
@@ -110,19 +110,19 @@ class Cano:
         self.pos_base = self.altura + self.DISTANCIA
     
     def mover(self):
-       self.x -= self.VELOCIDADE
+        self.x -= self.VELOCIDADE
 
     def desenhar(self, tela):
-        tela.blit(self.CANO_TOPO, (self.x , self.pos_topo))
-        tela.blit(self.CANO_BASE, (self.x , self.pos_base))
+        tela.blit(self.CANO_TOPO, (self.x, self.pos_topo))
+        tela.blit(self.CANO_BASE, (self.x, self.pos_base))
 
     def colidir(self, passaro):
         passaro_mask = passaro.get_mask()
         topo_mask=  pygame.mask.from_surface(self.CANO_TOPO)
         base_mask=  pygame.mask.from_surface(self.CANO_BASE)
 
-        distancia_topo = (self.x - passaro.x , self.pos_topo - round(passaro.y))
-        distancia_base = (self.x - passaro.x , self.pos_base - round(passaro.y))
+        distancia_topo = (self.x - passaro.x, self.pos_topo - round(passaro.y))
+        distancia_base = (self.x - passaro.x, self.pos_base - round(passaro.y))
 
         topo_ponto = passaro_mask.overlap(topo_mask, distancia_topo)
         base_ponto = passaro_mask.overlap(base_mask, distancia_base)
@@ -138,8 +138,7 @@ class Chao:
     LARGURA = IMAGEM_CHAO.get_width()
     IMAGEM = IMAGEM_CHAO
 
-
-    def __init__(self,y):
+    def __init__(self, y):
         self.y = y
         self.x1 = 0
         self.x2 = self.LARGURA
@@ -169,7 +168,7 @@ def desenhar_tela(tela, passaros, canos, chao, pontos):
     chao.desenhar(tela)
     pygame.display.update()
 
-def main():
+def main(): 
     passaros = [Passaro(230, 350)]
     chao = Chao(730)
     canos = [Cano(700)]
@@ -213,7 +212,7 @@ def main():
                 remover_canos.append(cano)
 
         if adicionar_cano:
-            ponto += 1
+            pontos += 1
             canos.append(Cano(600))
         for cano in remover_canos:
             canos.remove(cano)
