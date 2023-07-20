@@ -12,7 +12,7 @@ IMAGEM_BACKGROUND = pygame.transform.scale2x(pygame.image.load(os.path.join('img
 
 
 pygame.font.init()
-FONTE_PONTOS = pygame.font.SysFont('arial', 50)
+FONTE_PONTOS = pygame.font.SysFont('arial', 45)
 FONTE_GAMEOVER = pygame.font.SysFont('arial', 70)
 FONTE_REINICIAR = pygame.font.SysFont('arial', 30)
 FONTE_RECORDE = pygame.font.SysFont('arial', 15)
@@ -25,6 +25,12 @@ class Passaro:
     ]
 
     IMAGENS_PASSARO_2 = [
+        pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'bobesponja1.png'))),
+        pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'bobesponja2.png'))),
+        pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'bobesponja1.png')))
+    ]
+
+    IMAGENS_PASSARO_3 = [
         pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'bobesponja1.png'))),
         pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'bobesponja2.png'))),
         pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'bobesponja1.png')))
@@ -217,14 +223,10 @@ def desenhar_tela(tela, passaros, canos, chao, pontos, recorde, game_over_flag):
 def tela_selecao_passaro(tela):
     opcao = None
 
-    while opcao not in ('1', '2'):
-        tela.fill((0, 0, 0))
-        texto_escolha = FONTE_PONTOS.render("Escolha o passaro: 1 ou 2", True, (255, 255, 255))
-        texto_aperte_tecla = FONTE_RECORDE.render("Aperte a tecla equivalente para começar", True, (255, 255, 255))
-        tela.blit(texto_escolha, (TELA_LARGURA // 2 - texto_escolha.get_width() // 2, TELA_ALTURA // 2 - 30))
-        tela.blit(texto_aperte_tecla, (TELA_LARGURA // 2 - texto_aperte_tecla.get_width() // 2, TELA_ALTURA // 2 + 30))
-        pygame.display.update()
+    # Carregar a imagem de fundo
+    imagem_background = pygame.transform.scale(pygame.image.load(os.path.join('imgs', 'bg.png')), (TELA_LARGURA, TELA_ALTURA))
 
+    while opcao not in ('1', '2', '3'):
         for evento in pygame.event.get():
             if evento.type == pygame.QUIT:
                 pygame.quit()
@@ -235,6 +237,16 @@ def tela_selecao_passaro(tela):
                     opcao = '1'
                 elif evento.key == pygame.K_2:
                     opcao = '2'
+                elif evento.key == pygame.K_3:
+                    opcao = '3'
+
+        # Desenhar o plano de fundo e a mensagem de escolha do personagem
+        tela.blit(imagem_background, (0, 0))
+        texto_escolha = FONTE_PONTOS.render("Escolha o Pássaro: 1, 2 ou 3", True, (255, 255, 255))
+        texto_aperte_tecla = FONTE_RECORDE.render("Aperte a tecla equivalente para começar", True, (255, 255, 255))
+        tela.blit(texto_escolha, (TELA_LARGURA // 2 - texto_escolha.get_width() // 2, TELA_ALTURA // 2 - 30))
+        tela.blit(texto_aperte_tecla, (TELA_LARGURA // 2 - texto_aperte_tecla.get_width() // 2, TELA_ALTURA // 2 + 30))
+        pygame.display.update()
 
     return opcao
 
@@ -272,8 +284,10 @@ def main():
 
     if opcao_passaro == '1':
         passaros = [Passaro(230, 350, imgs=Passaro.IMAGENS_PASSARO_1)]
-    else:
+    elif opcao_passaro == '2':
         passaros = [Passaro(230, 350, imgs=Passaro.IMAGENS_PASSARO_2)]
+    else :
+        passaros = [Passaro(230, 350, imgs=Passaro.IMAGENS_PASSARO_3)]
 
     chao = Chao(730)
     canos = [Cano(700)]
