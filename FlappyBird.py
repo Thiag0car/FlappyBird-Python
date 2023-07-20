@@ -5,14 +5,11 @@ import random
 TELA_LARGURA = 500
 TELA_ALTURA = 800
 
-IMAGEM_CANO = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'pipe.png')))
+IMAGEM_CANO = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'pipe.png'))) 
 IMAGEM_CHAO = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'base.png')))
 IMAGEM_BACKGROUND = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'bg.png')))
-IMAGENS_PASSARO = [
-    pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'bird1.png'))),
-    pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'bird2.png'))),
-    pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'bird3.png')))
-]
+
+
 
 pygame.font.init()
 FONTE_PONTOS = pygame.font.SysFont('arial', 50)
@@ -21,13 +18,24 @@ FONTE_REINICIAR = pygame.font.SysFont('arial', 30)
 FONTE_RECORDE = pygame.font.SysFont('arial', 15)
 
 class Passaro:
-    IMGS = IMAGENS_PASSARO 
+    IMAGENS_PASSARO_1 = [
+        pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'bird1.png'))),
+        pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'bird2.png'))),
+        pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'bird3.png')))
+    ]
+
+    IMAGENS_PASSARO_2 = [
+        pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'bobesponja1.png'))),
+        pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'bobesponja2.png'))),
+        pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'bobesponja1.png')))
+    ]
+
     #animações da rotação
     ROTAÇAO_MAXIMA = 25
     VELOCIDADE_ROTAÇAO = 20
     TEMPO_ANIMAÇAO = 5
     
-    def __init__(self, x , y):
+    def __init__(self, x, y, imgs=IMAGENS_PASSARO_1):
         self.x = x
         self.y = y
         self.angulo = 0
@@ -35,8 +43,12 @@ class Passaro:
         self.altura = self.y
         self.tempo = 0
         self.contagem_imagem = 0
-        self.imagem = self.IMGS[0]
+        self.set_imagens(imgs)
 
+    def set_imagens(self, imgs):
+        self.IMGS = imgs
+        self.imagem = self.IMGS[0]
+    
     def pular(self):
         self.velocidade= -10.5
         self.tempo = 0
@@ -159,6 +171,7 @@ class Chao:
         tela.blit(self.IMAGEM, (self.x1 , self.y))
         tela.blit(self.IMAGEM, (self.x2 , self.y))
 
+
 def desenhar_tela(tela, passaros, canos, chao, pontos, recorde, game_over_flag):
     tela.blit(IMAGEM_BACKGROUND, (0, 0))
     for passaro in passaros:
@@ -166,23 +179,65 @@ def desenhar_tela(tela, passaros, canos, chao, pontos, recorde, game_over_flag):
     for cano in canos:
         cano.desenhar(tela)
 
-    texto_pontos = FONTE_PONTOS.render(f'Pontuação: {pontos}', 1, (255, 255, 255))
-    texto_recorde = FONTE_RECORDE.render(f'Recorde: {recorde}', 1, (255, 255, 255))
-    tela.blit(texto_pontos, (TELA_LARGURA - 10 - texto_pontos.get_width(), 10))
-    tela.blit(texto_recorde, (TELA_LARGURA - 10 - texto_recorde.get_width(), 70))
+    # Verifica se o jogo está em andamento ou se está no Game Over
+    if not game_over_flag:
+        texto_pontos = FONTE_PONTOS.render(f'Pontuação: {pontos}', 1, (255, 255, 255))
+        texto_recorde = FONTE_RECORDE.render(f'Recorde: {recorde}', 1, (255, 255, 255))
+        tela.blit(texto_pontos, (TELA_LARGURA - 10 - texto_pontos.get_width(), 10))
+        tela.blit(texto_recorde, (TELA_LARGURA - 10 - texto_recorde.get_width(), 70))
 
     if game_over_flag:
         mensagem_gameover = FONTE_GAMEOVER.render("Game Over", 1, (255, 255, 255))
         mensagem_reiniciar = FONTE_REINICIAR.render("Aperte Enter para Recomeçar", 1, (255, 255, 255))
-        mensagem_pontos = FONTE_RECORDE.render(f'Pontuação: {pontos}', 1, (255, 255, 255))
-        mensagem_recorde = FONTE_RECORDE.render(f'Recorde: {recorde}', 1, (255, 255, 255))
-        tela.blit(mensagem_gameover, (TELA_LARGURA/2 - mensagem_gameover.get_width()/2, TELA_ALTURA/2 - mensagem_gameover.get_height()/2))
-        tela.blit(mensagem_pontos, (TELA_LARGURA/2 - mensagem_pontos.get_width()/2, TELA_ALTURA/2 + mensagem_gameover.get_height()/2 + 10))
-        tela.blit(mensagem_recorde, (TELA_LARGURA/2 - mensagem_recorde.get_width()/2, TELA_ALTURA/2 + mensagem_gameover.get_height()/2 + mensagem_pontos.get_height() + 20))
-        tela.blit(mensagem_reiniciar, (TELA_LARGURA/2 - mensagem_reiniciar.get_width()/2, TELA_ALTURA/2 + mensagem_gameover.get_height()/2 + mensagem_pontos.get_height() + mensagem_recorde.get_height() + 30))
+
+        # Centralizar as mensagens de "Game Over" e "Aperte Enter para Reiniciar"
+        pos_x_gameover = TELA_LARGURA // 2 - mensagem_gameover.get_width() // 2
+        pos_y_gameover = TELA_ALTURA // 2 - mensagem_gameover.get_height() // 2
+        pos_x_reiniciar = TELA_LARGURA // 2 - mensagem_reiniciar.get_width() // 2
+        pos_y_reiniciar = TELA_ALTURA // 2 + mensagem_gameover.get_height() + 30
+
+        tela.blit(mensagem_gameover, (pos_x_gameover, pos_y_gameover))
+        tela.blit(mensagem_reiniciar, (pos_x_reiniciar, pos_y_reiniciar))
+
+        # Centralizar as mensagens de "Pontuação" e "Recorde" na tela de Game Over
+        texto_pontos = FONTE_RECORDE.render(f'Pontuação: {pontos}', 1, (255, 255, 255))
+        texto_recorde = FONTE_RECORDE.render(f'Recorde: {recorde}', 1, (255, 255, 255))
+        pos_x_pontos = TELA_LARGURA // 2 - texto_pontos.get_width() // 2
+        pos_y_pontos = TELA_ALTURA // 2 + mensagem_gameover.get_height() // 2 + 10
+        pos_x_recorde = TELA_LARGURA // 2 - texto_recorde.get_width() // 2
+        pos_y_recorde = TELA_ALTURA // 2 + mensagem_gameover.get_height() // 2 + texto_pontos.get_height() + 20
+
+        tela.blit(texto_pontos, (pos_x_pontos, pos_y_pontos))
+        tela.blit(texto_recorde, (pos_x_recorde, pos_y_recorde))
 
     chao.desenhar(tela)
     pygame.display.update()
+
+
+def tela_selecao_passaro(tela):
+    opcao = None
+
+    while opcao not in ('1', '2'):
+        tela.fill((0, 0, 0))
+        texto_escolha = FONTE_PONTOS.render("Escolha o passaro: 1 ou 2", True, (255, 255, 255))
+        texto_aperte_tecla = FONTE_RECORDE.render("Aperte a tecla equivalente para começar", True, (255, 255, 255))
+        tela.blit(texto_escolha, (TELA_LARGURA // 2 - texto_escolha.get_width() // 2, TELA_ALTURA // 2 - 30))
+        tela.blit(texto_aperte_tecla, (TELA_LARGURA // 2 - texto_aperte_tecla.get_width() // 2, TELA_ALTURA // 2 + 30))
+        pygame.display.update()
+
+        for evento in pygame.event.get():
+            if evento.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+
+            if evento.type == pygame.KEYDOWN:
+                if evento.key == pygame.K_1:
+                    opcao = '1'
+                elif evento.key == pygame.K_2:
+                    opcao = '2'
+
+    return opcao
+
 
 def game_over(pontos, recorde):
     while True:
@@ -206,11 +261,22 @@ def salvar_recorde(recorde):
     with open('recorde.txt', 'w') as arquivo:
         arquivo.write(str(recorde))
 
+
+
 def main():
-    passaros = [Passaro(230, 350)]
+    pygame.init()
+    tela = pygame.display.set_mode((TELA_LARGURA, TELA_ALTURA))
+    pygame.display.set_caption('Flappy Bird')
+
+    opcao_passaro = tela_selecao_passaro(tela)
+
+    if opcao_passaro == '1':
+        passaros = [Passaro(230, 350, imgs=Passaro.IMAGENS_PASSARO_1)]
+    else:
+        passaros = [Passaro(230, 350, imgs=Passaro.IMAGENS_PASSARO_2)]
+
     chao = Chao(730)
     canos = [Cano(700)]
-    tela = pygame.display.set_mode((TELA_LARGURA, TELA_ALTURA))
     pontos = 0
     recorde = carregar_recorde()
     relogio = pygame.time.Clock()
@@ -270,7 +336,7 @@ def main():
                     if pontos > recorde:
                         recorde = pontos
                         salvar_recorde(recorde)
-
+        
         desenhar_tela(tela, passaros, canos, chao, pontos, recorde, game_over_flag)
 
         if game_over_flag:
@@ -278,3 +344,7 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+
+
+
