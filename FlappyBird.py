@@ -5,11 +5,14 @@ import random
 TELA_LARGURA = 500
 TELA_ALTURA = 800
 
-IMAGEM_CANO = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'pipe.png'))) 
+IMAGEM_CANO = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'pipe.png')))
+IMAGEM_CANO_VANILLA = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'Vanilla_pipe.png')))
+IMAGEM_CANO_AZUL = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'Blue_pipe.png')))
+IMAGEM_CANO_AMARELO = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'Sand_pipe.png')))
+IMAGEM_CANO_ROXO = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'Vanilla_pipe.png')))
+
 IMAGEM_CHAO = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'base.png')))
 IMAGEM_BACKGROUND = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'bg.png')))
-
-
 
 pygame.font.init()
 FONTE_PONTOS = pygame.font.SysFont('arial', 45)
@@ -31,16 +34,16 @@ class Passaro:
     ]
 
     IMAGENS_PASSARO_3 = [
-        pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'bobesponja1.png'))),
-        pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'bobesponja2.png'))),
-        pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'bobesponja1.png')))
+        pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'Deteu3.png'))),
+        pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'Deteu2.png'))),
+        pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'Deteu1.png')))
     ]
 
-    #animações da rotação
+    # animações da rotação
     ROTAÇAO_MAXIMA = 25
     VELOCIDADE_ROTAÇAO = 20
     TEMPO_ANIMAÇAO = 5
-    
+
     def __init__(self, x, y, imgs=IMAGENS_PASSARO_1):
         self.x = x
         self.y = y
@@ -54,53 +57,53 @@ class Passaro:
     def set_imagens(self, imgs):
         self.IMGS = imgs
         self.imagem = self.IMGS[0]
-    
+
     def pular(self):
-        self.velocidade= -10.5
+        self.velocidade = -10.5
         self.tempo = 0
         self.altura = self.y
-    
+
     def mover(self):
-        #calcular o deslocamento
+        # calcular o deslocamento
         self.tempo += 1
-        deslocamento = 1.5 * (self.tempo**2) + self.velocidade * self.tempo
-    
-        #restringir o deslocamento
+        deslocamento = 1.5 * (self.tempo ** 2) + self.velocidade * self.tempo
+
+        # restringir o deslocamento
         if deslocamento > 16:
             deslocamento = 16
         elif deslocamento < 0:
             deslocamento -= 2
 
         self.y += deslocamento
-      
-        #angulo do passaro
+
+        # angulo do passaro
         if deslocamento < 0 or self.y < (self.altura + 50):
             if self.angulo < self.ROTAÇAO_MAXIMA:
                 self.angulo = self.ROTAÇAO_MAXIMA
         else:
             if self.angulo > -90:
                 self.angulo -= self.VELOCIDADE_ROTAÇAO
-    
+
     def desenhar(self, tela):
         # definir qual imagem do pássaro vai ser usado
         self.contagem_imagem += 1
 
         if self.contagem_imagem < self.TEMPO_ANIMAÇAO:
             self.imagem = self.IMGS[0]
-        elif self.contagem_imagem < self.TEMPO_ANIMAÇAO*2: 
+        elif self.contagem_imagem < self.TEMPO_ANIMAÇAO * 2:
             self.imagem = self.IMGS[1]
-        elif self.contagem_imagem < self.TEMPO_ANIMAÇAO*3: 
+        elif self.contagem_imagem < self.TEMPO_ANIMAÇAO * 3:
             self.imagem = self.IMGS[2]
-        elif self.contagem_imagem < self.TEMPO_ANIMAÇAO*4: 
+        elif self.contagem_imagem < self.TEMPO_ANIMAÇAO * 4:
             self.imagem = self.IMGS[1]
-        elif self.contagem_imagem >= self.TEMPO_ANIMAÇAO*4 + 1: 
+        elif self.contagem_imagem >= self.TEMPO_ANIMAÇAO * 4 + 1:
             self.imagem = self.IMGS[0]
             self.contagem_imagem = 0
 
         # se o pássaro estiver caindo a asa não vai bater
         if self.angulo <= -80:
             self.imagem = self.IMGS[1]
-            self.contagem_imagem = self.TEMPO_ANIMAÇAO*2
+            self.contagem_imagem = self.TEMPO_ANIMAÇAO * 2
 
         # desenhar imagem
         imagem_rotacionada = pygame.transform.rotate(self.imagem, self.angulo)
@@ -110,37 +113,60 @@ class Passaro:
 
     def get_mask(self):
         return pygame.mask.from_surface(self.imagem)
-                              
+
 class Cano:
     DISTANCIA = 217
     VELOCIDADE = 5
-    
+
     def __init__(self, x):
         self.x = x
         self.altura = 0
         self.pos_topo = 0
         self.pos_base = 0
-        self.CANO_TOPO = pygame.transform.flip(IMAGEM_CANO, False, True) 
+        self.CANO_TOPO = pygame.transform.flip(IMAGEM_CANO, False, True)
         self.CANO_BASE = IMAGEM_CANO
+        self.CANO_TOPO_AZUL = pygame.transform.scale2x(pygame.transform.flip(pygame.image.load(os.path.join('imgs', 'Blue_pipe.png')), False, True))
+        self.CANO_BASE_AZUL = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'Blue_pipe.png')))
+        self.CANO_TOPO_AMARELO = pygame.transform.scale2x(pygame.transform.flip(pygame.image.load(os.path.join('imgs', 'Sand_pipe.png')), False, True))
+        self.CANO_BASE_AMARELO = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'Sand_pipe.png')))
+        self.CANO_TOPO_ROXO = pygame.transform.scale2x(pygame.transform.flip(pygame.image.load(os.path.join('imgs', 'Purple_pipe.png')), False, True))
+        self.CANO_BASE_ROXO = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'Purple_pipe.png')))
+        self.CANO_TOPO_VANILLA = pygame.transform.scale2x(pygame.transform.flip(pygame.image.load(os.path.join('imgs', 'Vanilla_pipe.png')), False, True))
+        self.CANO_BASE_VANILLA = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'Vanilla_pipe.png')))
         self.passou = False
         self.definir_altura()
+     
+
+    def desenhar(self, tela, using_vanilla_pipe=False, using_azul_pipe = False, using_amarelo_pipe =False, using_roxo_pipe = False):
+        if using_vanilla_pipe:
+            tela.blit(self.CANO_TOPO_VANILLA, (self.x, self.pos_topo))
+            tela.blit(self.CANO_BASE_VANILLA, (self.x, self.pos_base))
+        elif using_azul_pipe:
+            tela.blit(self.CANO_TOPO_AZUL, (self.x, self.pos_topo))
+            tela.blit(self.CANO_BASE_AZUL, (self.x, self.pos_base))
+        elif using_amarelo_pipe:
+            tela.blit(self.CANO_TOPO_AMARELO, (self.x, self.pos_topo))
+            tela.blit(self.CANO_BASE_AMARELO, (self.x, self.pos_base))
+        elif using_roxo_pipe:
+            tela.blit(self.CANO_TOPO_ROXO, (self.x, self.pos_topo))
+            tela.blit(self.CANO_BASE_ROXO, (self.x, self.pos_base))
+        else:
+            tela.blit(self.CANO_TOPO, (self.x, self.pos_topo))
+            tela.blit(self.CANO_BASE, (self.x, self.pos_base))
+
 
     def definir_altura(self):
         self.altura = random.randrange(50, 450)
         self.pos_topo = self.altura - self.CANO_TOPO.get_height()
         self.pos_base = self.altura + self.DISTANCIA
-    
+
     def mover(self):
         self.x -= self.VELOCIDADE
 
-    def desenhar(self, tela):
-        tela.blit(self.CANO_TOPO, (self.x, self.pos_topo))
-        tela.blit(self.CANO_BASE, (self.x, self.pos_base))
-
     def colidir(self, passaro):
         passaro_mask = passaro.get_mask()
-        topo_mask=  pygame.mask.from_surface(self.CANO_TOPO)
-        base_mask=  pygame.mask.from_surface(self.CANO_BASE)
+        topo_mask = pygame.mask.from_surface(self.CANO_TOPO)
+        base_mask = pygame.mask.from_surface(self.CANO_BASE)
 
         distancia_topo = (self.x - passaro.x, self.pos_topo - round(passaro.y))
         distancia_base = (self.x - passaro.x, self.pos_base - round(passaro.y))
@@ -153,9 +179,8 @@ class Cano:
         else:
             return False
 
-
 class Chao:
-    VELOCIDADE = 5 
+    VELOCIDADE = 5
     LARGURA = IMAGEM_CHAO.get_width()
     IMAGEM = IMAGEM_CHAO
 
@@ -171,19 +196,18 @@ class Chao:
         if self.x1 + self.LARGURA < 0:
             self.x1 = self.x2 + self.LARGURA
         if self.x2 + self.LARGURA < 0:
-            self.x2 = self.x1 + self.LARGURA    
-     
+            self.x2 = self.x1 + self.LARGURA
+
     def desenhar(self, tela):
-        tela.blit(self.IMAGEM, (self.x1 , self.y))
-        tela.blit(self.IMAGEM, (self.x2 , self.y))
+        tela.blit(self.IMAGEM, (self.x1, self.y))
+        tela.blit(self.IMAGEM, (self.x2, self.y))
 
-
-def desenhar_tela(tela, passaros, canos, chao, pontos, recorde, game_over_flag):
+def desenhar_tela(tela, passaros, canos, chao, pontos, recorde, game_over_flag, using_vanilla_pipe=False, using_azul_pipe = False, using_amarelo_pipe =False, using_roxo_pipe = False):
     tela.blit(IMAGEM_BACKGROUND, (0, 0))
     for passaro in passaros:
         passaro.desenhar(tela)
     for cano in canos:
-        cano.desenhar(tela)
+        cano.desenhar(tela, using_vanilla_pipe, using_azul_pipe , using_amarelo_pipe, using_roxo_pipe)
 
     # Verifica se o jogo está em andamento ou se está no Game Over
     if not game_over_flag:
@@ -219,7 +243,6 @@ def desenhar_tela(tela, passaros, canos, chao, pontos, recorde, game_over_flag):
     chao.desenhar(tela)
     pygame.display.update()
 
-
 def tela_selecao_passaro(tela):
     opcao = None
 
@@ -250,7 +273,6 @@ def tela_selecao_passaro(tela):
 
     return opcao
 
-
 def game_over(pontos, recorde):
     while True:
         for evento in pygame.event.get():
@@ -273,8 +295,6 @@ def salvar_recorde(recorde):
     with open('recorde.txt', 'w') as arquivo:
         arquivo.write(str(recorde))
 
-
-
 def main():
     pygame.init()
     tela = pygame.display.set_mode((TELA_LARGURA, TELA_ALTURA))
@@ -295,6 +315,10 @@ def main():
     recorde = carregar_recorde()
     relogio = pygame.time.Clock()
     game_over_flag = False
+    using_vanilla_pipe = False
+    using_azul_pipe = False
+    using_amarelo_pipe =False
+    using_roxo_pipe = False
 
     rodando = True
     while rodando:
@@ -314,9 +338,13 @@ def main():
                 if evento.key == pygame.K_RETURN and game_over_flag:
                     game_over_flag = False
                     pontos = 0
+                    using_vanilla_pipe = False 
+                    using_azul_pipe = False
+                    using_amarelo_pipe =False
+                    using_roxo_pipe = False
                     passaros = [Passaro(230, 350)]
                     canos = [Cano(700)]
-        
+
         if not game_over_flag:
             for passaro in passaros:
                 passaro.mover()
@@ -340,7 +368,24 @@ def main():
 
             if adicionar_cano:
                 pontos += 1
-                canos.append(Cano(600))
+                if 40>= pontos >= 20 and not using_vanilla_pipe and not using_azul_pipe and not using_amarelo_pipe and not using_roxo_pipe:
+                    using_vanilla_pipe = True
+                    canos.append(Cano(600))
+                elif 60>= pontos >= 40 and not using_azul_pipe and not using_amarelo_pipe and not using_roxo_pipe:
+                    using_vanilla_pipe = False
+                    using_azul_pipe = True
+                    canos.append(Cano(600))
+                elif 80>= pontos >= 60  and not using_vanilla_pipe and not using_amarelo_pipe and not using_roxo_pipe:
+                    using_azul_pipe = False
+                    using_amarelo_pipe = True
+                    canos.append(Cano(600))
+                elif 100>= pontos >= 80  and not using_vanilla_pipe and not using_azul_pipe and not using_roxo_pipe:
+                    using_amarelo_pipe = False
+                    using_roxo_pipe = True
+                    canos.append(Cano(600))
+                else:
+                    canos.append(Cano(600))
+
             for cano in remover_canos:
                 canos.remove(cano)
 
@@ -350,15 +395,11 @@ def main():
                     if pontos > recorde:
                         recorde = pontos
                         salvar_recorde(recorde)
-        
-        desenhar_tela(tela, passaros, canos, chao, pontos, recorde, game_over_flag)
+
+        desenhar_tela(tela, passaros, canos, chao, pontos, recorde, game_over_flag, using_vanilla_pipe,using_azul_pipe, using_amarelo_pipe, using_roxo_pipe)
 
         if game_over_flag:
             game_over(pontos, recorde)
 
 if __name__ == '__main__':
     main()
-
-
-
-

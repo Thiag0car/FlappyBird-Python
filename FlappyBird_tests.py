@@ -6,6 +6,11 @@ TELA_LARGURA = 500
 TELA_ALTURA = 800
 
 IMAGEM_CANO = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'pipe.png')))
+IMAGEM_CANO_VANILLA = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'Vanilla_pipe.png')))
+IMAGEM_CANO_AZUL = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'Blue_pipe.png')))
+IMAGEM_CANO_AMARELO = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'Sand_pipe.png')))
+IMAGEM_CANO_ROXO = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'Vanilla_pipe.png')))
+
 IMAGEM_CHAO = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'base.png')))
 IMAGEM_BACKGROUND = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'bg.png')))
 
@@ -29,9 +34,9 @@ class Passaro:
     ]
 
     IMAGENS_PASSARO_3 = [
-        pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'bobesponja1.png'))),
-        pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'bobesponja2.png'))),
-        pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'bobesponja1.png')))
+        pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'Deteu33.png'))),
+        pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'Deteu22.png'))),
+        pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'Deteu11.png')))
     ]
 
     # animações da rotação
@@ -363,18 +368,18 @@ def main():
 
             if adicionar_cano:
                 pontos += 1
-                if 10>= pontos >= 5 and not using_vanilla_pipe and not using_azul_pipe and not using_amarelo_pipe and not using_roxo_pipe:
+                if 40>= pontos >= 20 and not using_vanilla_pipe and not using_azul_pipe and not using_amarelo_pipe and not using_roxo_pipe:
                     using_vanilla_pipe = True
                     canos.append(Cano(600))
-                elif 15>= pontos >= 10 and not using_azul_pipe and not using_amarelo_pipe and not using_roxo_pipe:
+                elif 60>= pontos >= 40 and not using_azul_pipe and not using_amarelo_pipe and not using_roxo_pipe:
                     using_vanilla_pipe = False
                     using_azul_pipe = True
                     canos.append(Cano(600))
-                elif 20>= pontos >= 15  and not using_vanilla_pipe and not using_amarelo_pipe and not using_roxo_pipe:
+                elif 80>= pontos >= 60  and not using_vanilla_pipe and not using_amarelo_pipe and not using_roxo_pipe:
                     using_azul_pipe = False
                     using_amarelo_pipe = True
                     canos.append(Cano(600))
-                elif 25>= pontos >= 20  and not using_vanilla_pipe and not using_azul_pipe and not using_roxo_pipe:
+                elif 100>= pontos >= 80  and not using_vanilla_pipe and not using_azul_pipe and not using_roxo_pipe:
                     using_amarelo_pipe = False
                     using_roxo_pipe = True
                     canos.append(Cano(600))
