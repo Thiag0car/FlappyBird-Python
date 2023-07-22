@@ -8,7 +8,7 @@ Simples! Siga os seguintes passos:
 
 1.  Clone esse repositório no seu computador
 2.  pip install pygame (caso ainda não tenha)
-3.  Rodar o caderno FlappyBird
+3.  Rodar o caderno 'FlappyBird.py'
 4.  Jogar
 
 # Como o Código Foi Criado
@@ -22,5 +22,26 @@ Entretanto achei o jogo incompleto e sem graça e decidi adicionar algumas mudan
 - Adicionei o bob esponja como jogável e o DETEU
 - Criei uma mini interface para escolher o seu personagem antes de começar o jogo
 - Crie um sistema que a cada 20 canos uma nova cor de cano começa a aparecer (ultima cor nova desbloqueada depois do ponto 80)
+
+# Tela de Game Over e Recorde
+<img  align= "right" src="pics/Personagens Jogaveis.png" width="25%" >
+
+# Novos Personagens Jogaveis
+<img  align= "right" src="pics/Personagens Jogaveis.png" width="25%" >
+
+Logo no começo do jogo você tera a chance de escolher com qual personagem você quer jogar, basta apertar a tecla '1','2' ou '3' do seu computador e seguir com o personagem escolhido.
+
+Segue adiante as descrições dos personagens:
+
+
+| Personagem |  Largura | Altura | Descrição | 
+| -- | -- | -- | -- | 
+| Pássaro | 34 | 24 | Se você quer apenas jogar o jogo normalmente essa é a escolha perfeita para você |
+| Bob esponja | 34 | 24 | Escolha divertida, apesar de sua movimentação um pouco estranha o que pode atrapalhar na gameplay |
+| Deteu | 34 | *60* | (Desafio) Jogar com Deteu é um Desafio por causa de sua Hitbox consideravelmente maior do que as outras. |
+
+
+
+
 
 
