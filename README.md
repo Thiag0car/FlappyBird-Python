@@ -19,7 +19,7 @@ Entretanto achei o jogo incompleto e sem graça e decidi adicionar algumas mudan
 - Aumentei a distância do cano do topo em relação ao cano da base de 200 para 217
 - O jogo não fecha sozinho mais quando você perde (ou continua rodando mesmo morto), agora ele mostra uma tela de game over e você aperta ENTER se quiser continuar jogando
 - Sistema básico de recorde, o seu recorde aparece no canto superior direito e também na tela de game over
-- Adicionei o bob esponja como jogável e o DETEU
+- Adicionei o bob esponja e o DETEU como jogável
 - Criei uma mini interface para escolher o seu personagem antes de começar o jogo
 - Crie um sistema que a cada 20 canos uma nova cor de cano começa a aparecer (ultima cor nova desbloqueada depois do ponto 80)
 
@@ -36,11 +36,15 @@ Logo no começo do jogo você tera a chance de escolher com qual personagem voc�
 Segue adiante as descrições dos personagens:
 
 
-| Personagem |  Largura | Altura | Descrição | 
-| -- | -- | -- | -- | 
-| Pássaro | 34 | 24 | Se você quer apenas jogar o jogo normalmente essa é a escolha perfeita para você |
-| Bob esponja | 34 | 24 | Escolha divertida, apesar de sua movimentação um pouco estranha o que pode atrapalhar na gameplay |
-| Deteu | 34 | *60* | (Desafio) Jogar com Deteu é um Desafio por causa de sua Hitbox consideravelmente maior do que as outras. |
+| Personagem |  Número |  Largura | Altura | Descrição | 
+| -- | -- | -- | -- | -- | 
+| Pássaro | 1 | 34 | 24 | Se você quer apenas jogar o jogo normalmente essa é a escolha perfeita para você |
+| Bob esponja | 2 | 34 | 24 | Escolha divertida, apesar de sua movimentação um pouco estranha o que pode atrapalhar na gameplay |
+| Deteu | 3 | 34 | *60* | (Desafio) Jogar com Deteu é um Desafio por causa de sua Hitbox consideravelmente maior do que as outras. |
+
+# Canos Coloridos
+
+
 
 
 
