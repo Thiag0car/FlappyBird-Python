@@ -1,2 +1,2 @@
-# FlappyBird-Python
-Criando o jogo FlappyBird utilizando algumas bibliotecas do python
+# Como Jogar FlappyBird
+Flappy Bird é um popular jogo eletrônico casual em que o jogador controla um pequeno pássaro, desafiado a voar por entre os canos sem colidir. O objetivo é avançar o máximo possível para alcançar a maior pontuação. Para jogar no computador, você pode pressionar a tecla de espaço para fazer o pássaro voar e soltar a tecla para fazê-lo descer. A precisão no timing dos saltos é fundamental para evitar obstáculos e progredir no jogo. A simplicidade do Flappy Bird o torna viciante e desafiador para jogadores de todas as idades.
