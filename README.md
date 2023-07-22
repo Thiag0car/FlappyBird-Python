@@ -18,7 +18,7 @@ Comecei seguindo o passo a passo do curso da hashtag de como fazer o FlappyBird.
 Entretanto achei o jogo incompleto e sem graça e decidi adicionar algumas mudanças e features novas. Então segue uma lista das alterações que eu fiz no jogo do FlappyBird:
 - Aumentei a distância do cano do topo em relação ao cano da base de 200 para 217
 - O jogo não fecha sozinho mais quando você perde (ou continua rodando mesmo morto), agora ele mostra uma tela de game over e você aperta ENTER se quiser continuar jogando
-- Sistema básico de recorde, o seu recorde aparece no canto superior esquerdo e também na tela de game over
+- Sistema básico de recorde, o seu recorde aparece no canto superior direito e também na tela de game over
 - Adicionei o bob esponja como jogável e o DETEU
 - Criei uma mini interface para escolher o seu personagem antes de começar o jogo
 - Crie um sistema que a cada 20 canos uma nova cor de cano começa a aparecer (ultima cor nova desbloqueada depois do ponto 80)
