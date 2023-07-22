@@ -24,7 +24,9 @@ Entretanto achei o jogo incompleto e sem graça e decidi adicionar algumas mudan
 - Crie um sistema que a cada 20 canos uma nova cor de cano começa a aparecer (ultima cor nova desbloqueada depois do ponto 80)
 
 # Tela de Game Over e Recorde
-<img  align= "right" src="pics/Personagens Jogaveis.png" width="25%" >
+
+Adicionei uma tela de Game Over para que o jogador não precise rodar o código novamente toda vez que morrer, basta precionar a tecla ENTER que o jogo recomeça. Além disso,
+também foi Adicionado um sistema de recorde para deixar o jogo mais interessante. O seu record vai ficar salvo no seu computador então não se preocupe com isso. Caso queira reiniciar o seu recorde basta ir no arquivo 'recorde.txt' e alterar o número que esta lá para zero
 
 # Novos Personagens Jogaveis
 <img  align= "right" src="pics/Personagens Jogaveis.png" width="25%" >
