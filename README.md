@@ -13,7 +13,7 @@ Simples! Siga os seguintes passos:
 
 # Como o Código Foi Criado
 
-Comecei seguindo o passo a passo do curso da hashtag de como fazer o FlappyBird. Os videos tutoriais se encontram nesse link https://pages.hashtagtreinamentos.com/minicurso-python-criacaojogos-obrigado?blog=1n4033rer&video=3dep762tr e o gabarito (resultado final) desses videos está no arquivo 'FlappyBird_gabarito.py' caso queira testar.
+Comecei seguindo o passo a passo do curso da hashtag de como fazer o FlappyBird. Os videos tutoriais se encontram nesse link [Flappy Bird Tutorial](https://pages.hashtagtreinamentos.com/minicurso-python-criacaojogos-obrigado?blog=1n4033rer&video=3dep762tr). O gabarito (resultado final) desses videos está no arquivo 'FlappyBird_gabarito.py' caso queira testar.
 
 Entretanto achei o jogo incompleto e sem graça e decidi adicionar algumas mudanças e features novas. Então segue uma lista das alterações que eu fiz no jogo do FlappyBird:
 - Aumentei a distância do cano de cima em relação ao cano da base de 200 para 217 pixels.
