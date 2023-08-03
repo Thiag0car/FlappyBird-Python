@@ -73,6 +73,8 @@ Objetivo: Chegar a 80 pontos para ver todas as cores possíveis
 
 * O código ainda está bem bagunçado, e acredito que dá para ajustar algumas coisas, como por exemplo, colocando comentários dentro das funções.
 
+* Após alguns teste descobri que a hitbox do DETEU é maior do que parece, aparentemente ele é maior nas laterais do que realmente consta na imagem dele.
+  
 Fique à vontade para mexer com o código e, se for ajudar, mande um PR que eu analiso assim que possível.
 
 
