@@ -65,5 +65,6 @@ Good luck!
 # Future Changes
 * The code has a problem: pipes 20, 40, 60, and 80 change color instantly when you pass through them. The idea is to keep these pipes the same and only change the color for the subsequent pipes.
 * The code is still quite messy, and I believe there are some things that can be adjusted, such as adding comments within the functions.
+* After some tests, I discovered that DETEU's hitbox is larger than it appears; apparently, it extends more on the sides than what is shown in its image.
 
 Feel free to play around with the code, and if you want to help, send a PR, and I'll review it as soon as possible.
